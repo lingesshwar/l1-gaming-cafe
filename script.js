@@ -15,7 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Backend API base – adjust port if you change it in server.js
-const API_BASE = "http://localhost:4000";
+const API_BASE = "";
+
 
 function setupNav() {
   const nav = document.querySelector(".main-nav");
