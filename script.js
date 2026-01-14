@@ -1,5 +1,6 @@
 // L1 Gaming Cafe – Interaction Layer
 
+
 document.addEventListener("DOMContentLoaded", () => {
   setupNav();
   setupSmoothScroll();
