@@ -2,20 +2,30 @@ import sendMail from "./_sendMail.js";
 
 export default async function handler(req, res) {
   try {
-    const data = req.body;
+    const {
+      seatType,
+      date,
+      time,
+      duration,
+      players,
+      name,
+      email,
+    } = req.body;
 
-    await sendMail(data);
-
-    return res.status(200).json({
-      success: true,
-      message: "Booking sent successfully",
+    // 🔴 IMPORTANT: pass data correctly
+    await sendMail({
+      seatType,
+      date,
+      time,
+      duration,
+      players,
+      name,
+      email,
     });
-  } catch (err) {
-    console.error("Booking error:", err);
 
-    return res.status(500).json({
-      success: false,
-      message: "Failed to send booking",
-    });
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("BOOK API ERROR:", error);
+    return res.status(500).json({ error: "Booking failed" });
   }
 }
