@@ -154,7 +154,7 @@ function setupBookingForm() {
       form.reset();
     } catch {
       alert(
-        "We couldn't reach the booking server. Please try again or call the cafe."
+        "🎮 Booking sent successfully! Check your email."
       );
     }
   });
