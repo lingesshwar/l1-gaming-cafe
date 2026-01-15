@@ -5,13 +5,13 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 export default async function sendMail(data) {
   return await resend.emails.send({
     from: "L1 Gaming Cafe <onboarding@resend.dev>",
-    to: "sec24sc020@sairamtap.edu.in",
+    to: "lingesshwar@gmail.com",
 
     subject: `New booking – ${data.seatType?.toUpperCase()} – ${data.date} ${data.time}`,
 
     html: `
       <div style="font-family: Arial, sans-serif; padding: 16px;">
-        <h2>New booking request for L1 Gaming Cafe</h2>
+        <h2>New booking request from L1 Gaming Cafe</h2>
 
         <p><b>Name:</b> ${data.name}</p>
         <p><b>Email:</b> ${data.email}</p>
