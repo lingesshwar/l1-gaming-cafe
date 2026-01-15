@@ -3,32 +3,23 @@ import { Resend } from "resend";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export default async function sendMail(data) {
-  const seat = (data.seatType || "PC").toUpperCase();
-
   return await resend.emails.send({
-    from: "L1 Gaming Cafe <sec24sc020@sairamtap.edu.in>",
+    from: "L1 Gaming Cafe <onboarding@resend.dev>",
     to: process.env.STAFF_EMAIL,
 
-    subject: `New booking – ${seat} – ${data.date} ${data.time}`,
+    subject: "New Booking Request",
 
     html: `
-      <div style="font-family: Arial, sans-serif; padding: 20px; color: #111;">
-        <h2>🎮 New Booking Request</h2>
-        <p>New booking request from <strong>L1 Gaming Cafe</strong> website:</p>
+      <div style="font-family: Arial, sans-serif; padding: 20px;">
+        <h2>New Booking Request</h2>
 
-        <table style="margin-top: 12px; border-collapse: collapse;">
-          <tr><td><strong>Name:</strong></td><td>${data.name}</td></tr>
-          <tr><td><strong>Email:</strong></td><td>${data.email}</td></tr>
-          <tr><td><strong>Seat type:</strong></td><td>${seat}</td></tr>
-          <tr><td><strong>Date:</strong></td><td>${data.date}</td></tr>
-          <tr><td><strong>Start time:</strong></td><td>${data.time}</td></tr>
-          <tr><td><strong>Duration:</strong></td><td>${data.duration} hours</td></tr>
-          <tr><td><strong>Players:</strong></td><td>${data.players}</td></tr>
-        </table>
-
-        <p style="margin-top: 16px;">
-          You can reply to this email to confirm with the guest.
-        </p>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Seat Type:</strong> ${data.seatType}</p>
+        <p><strong>Date:</strong> ${data.date}</p>
+        <p><strong>Time:</strong> ${data.time}</p>
+        <p><strong>Duration:</strong> ${data.duration} hours</p>
+        <p><strong>Players:</strong> ${data.players}</p>
       </div>
     `,
   });
