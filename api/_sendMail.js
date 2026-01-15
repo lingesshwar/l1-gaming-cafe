@@ -1,37 +1,12 @@
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
-export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ message: "Method not allowed" });
-  }
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-  const { name, email, message } = req.body;
-
-  try {
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT),
-      secure: true,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: process.env.FROM_EMAIL,
-      to: process.env.STAFF_EMAIL,
-      subject: "New Gaming Cafe Booking",
-      html: `
-        <h2>New Message</h2>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Message:</b> ${message}</p>
-      `,
-    });
-
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    return res.status(500).json({ error: "Mail failed" });
-  }
+export default async function sendMail({ to, subject, html }) {
+  await resend.emails.send({
+    from: "L1 Gaming Cafe <onboarding@resend.dev>",
+    to,
+    subject,
+    html,
+  });
 }
